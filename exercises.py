@@ -33,3 +33,5 @@ print("\n" + "Second exercise:" + "\n")
 print(" " + str(table1))
 print(table2)
 print(table3)
+
+#Git Test

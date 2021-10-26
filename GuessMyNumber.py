@@ -22,3 +22,5 @@ while guess != randNum:
 print("\n You Won!")
 print(" Timer: " + str(math.floor(time.time() - startTimer)) + " seconds")
 print(" Steps: " + str(counter))
+
+#Git Test
