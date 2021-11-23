@@ -9,7 +9,8 @@ height = 800
 screen = turtle.Screen()
 screen.setup(width, height)
 
-amount = 2
+amount = 10
+amountJ = amount
 
 def randomColor():
     color = "%06x" % random.randint(0, 0xFFFFFF)
@@ -30,25 +31,36 @@ for i in range(amount):
     createCirle(i)
 
 while True:
-    for i in range(amount):
+    i=0
+    while i<amount:
         t[i].forward(0.5)
 
         if (t[i].xcor() > width/2 or t[i].xcor() < -(width/2) or t[i].ycor() > height/2 or t[i].ycor() < -(height/2)):
             t[i].right(180)
 
-        for j in range(amount):
+        if (random.randint(1, 1000) > 999):
+            t[i].right(random.randint(1, 360))
+
+        j=0
+        while j<amountJ:
             xx = 0
             yy = 0
             if (i != j):
                 xx = t[j].xcor()
                 yy = t[j].ycor()
 
-            if (t[i].xcor() > xx and t[i].xcor() + sizes[i]*2 < xx + sizes[j]*2):
-                if (t[i].ycor() > yy and t[i].ycor() + sizes[i]*2 < yy + sizes[j]*2):
-                    print(t[i].xcor(), t[i].ycor())
-                    time.sleep(2)
-                    
-        if (random.randint(1, 1000) > 999):
-            t[i].right(random.randint(1, 360))
+            if (sizes[i] > sizes[j]):
+                if (i < len(t) and j<len(t) and t[i].xcor() < xx + (sizes[i]*8) and t[i].xcor() > xx - (sizes[i]*8)):
+                    if (t[i].ycor() < yy + (sizes[i]*8) and t[i].ycor() > yy - (sizes[i]*8)):
+                        sizes[i] += sizes[j]
+                        t[i].shapesize(sizes[i])
+                        t[j].hideturtle()
+                        t[j].clear()
+                        t.remove(t[j])
+                        amountJ -= 1
+                        amount -= 1
+            j+=1
+        i+=1         
+        
 
 turtle.exitonclick()
